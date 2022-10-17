@@ -13,7 +13,7 @@ namespace PieceOfSalami
 
     class C
     {
-        public int a = 2;
+        public int a = 41;
     }
 
         class Program
