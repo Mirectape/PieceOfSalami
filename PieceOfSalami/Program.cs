@@ -2,47 +2,77 @@
 using System.Text;
 using System.Threading;
 using System.Collections.Generic;
+using System.Linq;
+using System.Collections;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace PieceOfSalami
 {
-    struct S
+    class Program
     {
-        public int a;
-        
-    }
+        static object o = new object();
+        static int countMultipleNumers = 0;
 
-    class C
-    {
-        public int a = 41;
-    }
+        static readonly int lowerBarNumber = 100_000_000;
+        static readonly int upperBarNumber = 200_000_000;
 
-        class Program
-    {
-
-        static void Main()
+        private static void Main(String[] args)
         {
-            bool Super(ref int a)
+            GetSumOfMultipleNumers();
+            Console.WriteLine(countMultipleNumers);
+            Console.ReadLine();
+        }
+
+        private static void GetSumOfMultipleNumers()
+        {
+            int tempNumber = lowerBarNumber;
+
+            while(tempNumber + 100_000 <= upperBarNumber)
             {
-                a++;
-                return true;
+                Task.Factory.StartNew(GetSumOfMultipleNumersInBetween, tempNumber);
+                tempNumber += 100_000;
+            }
+            Task.Factory.StartNew(GetSumOfMultipleNumersInBetween, tempNumber); 
+        }
+
+        private static void GetSumOfMultipleNumersInBetween(object tempNumber)
+        {
+            int totalSumInBetween = 0;
+
+            int lowerNumber = (int)tempNumber;
+            if(upperBarNumber - lowerNumber >= 100_000)
+            {
+                for (int i = lowerNumber; i < lowerNumber + 100_000; i++)
+                {
+                    var numericValueSplit = new NumericValueSplit<int>(i);
+                    if(numericValueSplit.isSumNumbersMultipleToLastNumber())
+                    {
+                        totalSumInBetween++;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = lowerNumber; i <= upperBarNumber; i++)
+                {
+                    var numericValueSplit = new NumericValueSplit<int>(i);
+                    if (numericValueSplit.isSumNumbersMultipleToLastNumber())
+                    {
+                        totalSumInBetween++;
+                    }
+                }
             }
 
-            int a = 1;
-            if(Super(ref a) && Super(ref a)) { }
-            Console.WriteLine(a);
-            S s = new S() { a = 1 };
-            C c = new C();
-            Func(c, s);
-            Console.WriteLine(c.a);
-            Console.WriteLine(s.a);
-        }
-        static void Func(C c, S s)
-        {
-            c.a++;
-            s.a++;
+            lock(o)
+            {
+                countMultipleNumers += totalSumInBetween;
+            }
         }
     }
-
 }
 
    
