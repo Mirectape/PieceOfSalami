@@ -30,13 +30,26 @@ namespace PieceOfSalami
         private static void GetSumOfMultipleNumers()
         {
             int tempNumber = lowerBarNumber;
+            var tasks = new List<Task>();
 
-            while(tempNumber + 100_000 <= upperBarNumber)
+            while (tempNumber + 100_000 <= upperBarNumber)
             {
-                Task.Factory.StartNew(GetSumOfMultipleNumersInBetween, tempNumber);
+                tasks.Add(Task.Factory.StartNew(GetSumOfMultipleNumersInBetween, tempNumber));
                 tempNumber += 100_000;
             }
-            Task.Factory.StartNew(GetSumOfMultipleNumersInBetween, tempNumber); 
+            tasks.Add(Task.Factory.StartNew(GetSumOfMultipleNumersInBetween, tempNumber));
+            Task t = Task.WhenAll(tasks);
+
+            try
+            {
+                t.Wait();
+            }
+            catch { }
+
+            if (t.Status == TaskStatus.RanToCompletion)
+                Console.WriteLine("All ping attempts succeeded.");
+            else if (t.Status == TaskStatus.Faulted)
+                Console.WriteLine("Ping attempts failed");
         }
 
         private static void GetSumOfMultipleNumersInBetween(object tempNumber)
@@ -75,6 +88,6 @@ namespace PieceOfSalami
     }
 }
 
-   
+//Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=MSSQLLocalDemo;Integrated Security=True;Pooling=False
 
 
