@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6456AD3D-1D19-4AF6-A50D-8DBE68E42DC4}</ProjectGuid>
+    <ProjectGuid>{ADEAEE5C-9128-48A5-8A14-279BFD3C9734}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ADO.NET_DemoApp</RootNamespace>
-    <AssemblyName>ADO.NET DemoApp</AssemblyName>
+    <RootNamespace>DataBaseFirst</RootNamespace>
+    <AssemblyName>DataBaseFirst</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -64,27 +64,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Person.cs">
-      <DependentUpon>TestTbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Pet.cs">
-      <DependentUpon>TestTbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TestTbContext.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TestTbContext.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TestTbContext.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TestTbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TestTbContext.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TestTbContext.edmx</DependentUpon>
-    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -99,6 +78,27 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="PersonSet.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PetSet.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -116,33 +116,32 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="ModelDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ModelDB.edmx.diagram">
+      <DependentUpon>ModelDB.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <EntityDeploy Include="TestTbContext.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TestTbContext.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="TestTbContext.edmx.diagram">
-      <DependentUpon>TestTbContext.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestTbContext.Context.tt">
+    <Content Include="ModelDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TestTbContext.Context.cs</LastGenOutput>
-      <DependentUpon>TestTbContext.edmx</DependentUpon>
+      <LastGenOutput>ModelDB.Context.cs</LastGenOutput>
+      <DependentUpon>ModelDB.edmx</DependentUpon>
     </Content>
-    <Content Include="TestTbContext.edmx.sql" />
-    <Content Include="TestTbContext.tt">
+    <Content Include="ModelDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TestTbContext.cs</LastGenOutput>
-      <DependentUpon>TestTbContext.edmx</DependentUpon>
+      <DependentUpon>ModelDB.edmx</DependentUpon>
+      <LastGenOutput>ModelDB.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

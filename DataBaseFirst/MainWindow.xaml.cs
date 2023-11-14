@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ADO.NET_DemoApp
+namespace DataBaseFirst
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -22,20 +22,28 @@ namespace ADO.NET_DemoApp
     {
         public MainWindow()
         {
+            //List<int> nums = new List<int>() { 1, 5, 11, 34 };
+            //var numRes = nums.Where(w => w > 11);
+
+            //foreach (var item in numRes)
+            //{
+            //    MessageBox.Show($"{item}", "info", MessageBoxButton.OK);
+            //}
+
             InitializeComponent();
-            TestTbContextContainer context = new TestTbContextContainer();
 
-            //Person magnus = new Person {id = 1, Name = "Magnus" };
-            //Pet dog = new Pet { Id = 1, Name = "The dog", Owner = "magnus" };
+            TESTEntities context = new TESTEntities();
 
-            //context.PersonSet.Add(magnus);
-            //context.PetSet.Add(dog);
-            //context.SaveChanges();
+            var res = context.PersonSet.Where(w => w.id > 0);
+            MessageBox.Show($"{res}", "info", MessageBoxButton.OK);
 
-            foreach (var item in context.PersonSet)
+            foreach (var item in res)
             {
-                MessageBox.Show($"{ item.Name}", "info", MessageBoxButton.OK);
+                //Console.WriteLine(item.Name);
+                //MessageBox.Show(item.Name, "info", MessageBoxButton.OK);
             }
+
         }
     }
 }
+
