@@ -5,7 +5,7 @@ namespace StringTransmutations
 {
     public class StringToNumber
     {
-        public static char[] StrToChars(string s)
+        public static char[] StrToChars(string s) //to chars
         {
             char[] chars = new char[s.Length];
             for (int i = 0; i < s.Length; i++)
